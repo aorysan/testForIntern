@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { Routes, Route, useNavigate } from "react-router";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
+import HomePage from "./HomePage.tsx";
 import svgPaths from "@/imports/StylishLoginPage/svg-mk8lm3pfiy";
 import imgContainer from "@/imports/StylishLoginPage/ad97c1741549147b22b8600f48960f9f52a471f9.png";
 
@@ -135,6 +137,7 @@ function LeftPanel() {
 }
 
 function RightPanel() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -142,6 +145,7 @@ function RightPanel() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    navigate("/home");
   }
 
   return (
@@ -298,9 +302,17 @@ function RightPanel() {
 
 export default function App() {
   return (
-    <div className="min-h-screen w-full flex flex-col lg:flex-row">
-      <LeftPanel />
-      <RightPanel />
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div className="min-h-screen w-full flex flex-col lg:flex-row">
+            <LeftPanel />
+            <RightPanel />
+          </div>
+        }
+      />
+      <Route path="/home" element={<HomePage />} />
+    </Routes>
   );
 }
